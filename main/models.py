@@ -12,7 +12,7 @@ class User(models.Model):
     name = models.CharField(max_length=10, verbose_name="Имя")
     is_verified = models.BooleanField(default=False)
     phone = PhoneNumberField(region='RU', verbose_name="Номер телефона")
-
+    town = models.CharField(max_length=15, verbose_name="Города")
 
     class Meta:
         verbose_name = "Пользователь"
@@ -39,7 +39,6 @@ class PollutionReport(models.Model):
     """
     Класс меток загрязнений на карте
     """
-
 
     pollution_types = models.ForeignKey(RubbishType, on_delete=CASCADE, verbose_name="Тип мусора", related_name="polluted_zones")
     location = models.CharField(verbose_name="Координаты")
@@ -70,3 +69,9 @@ class CleanupEvent(models.Model):
     class Meta:
         verbose_name = "Мероприятие по уборке"
         verbose_name_plural = "Мероприятия по уборке"
+
+class Comment(models.Model):
+    """
+    Комментарий к ивенту уборки
+    """
+    author = models.ForeignKey(User, on_delete=CASCADE, )
